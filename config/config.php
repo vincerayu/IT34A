@@ -21,6 +21,13 @@ try{
 
     );
 
+    $succes = logactivity($pdo,$user_id,$user_email,'db_connect','success');
+ if(success){
+    echo "Activity log insert succesfully.";
+ }else{
+    echo "Failed to insert activity log."
+ }
+
 }catch(PDOExecption $e){
     die("connection failed: " . $e->getMessage());
 }

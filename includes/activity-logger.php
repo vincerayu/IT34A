@@ -22,9 +22,26 @@ if (strpos ($ip,',')!== false){
   ) VALUES (?,?,?,?,?,?)
 
  ")
+
+ $success = $stmt->execute([
+    $user_id,
+    $user_email,
+    $action,
+    $status,
+    $ip,
+    $user_agent
+ ]);
+ return $success;
+ 
 } catch(PDOExeption $e){
     error_log("Activity Log Error:" . $e->getMessage());
     return false;
 }
 }
+$succes = logactivity($pdo,$user_id,$user_email,'activity','success');
+ if(success){
+    echo "Activity log insert succesfully.";
+ }else{
+    echo "Failed to insert activity log."
+ }
 ?>
