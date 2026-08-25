@@ -1,11 +1,12 @@
 <?php
 session_start();
-require_once ('includes/activity-logger.php');
-//define('','')
-define('BASE_URL','http:localhost/it34a');
+
+require_once __DIR__ . '/../includes/activity-logger.php';
+//define('','');
+define('BASE_URL','http://localhost/it34a');
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'it3a_lab_db');
+define('DB_NAME', 'it34a_lab_db');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
@@ -21,14 +22,8 @@ try{
 
     );
 
-    $succes = logactivity($pdo,$user_id,$user_email,'db_connect','success');
- if(success){
-    echo "Activity log insert succesfully.";
- }else{
-    echo "Failed to insert activity log."
- }
-
-}catch(PDOExecption $e){
+  
+}catch(PDOException $e){
     die("connection failed: " . $e->getMessage());
 }
 ?>
