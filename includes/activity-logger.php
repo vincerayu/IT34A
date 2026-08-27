@@ -1,13 +1,13 @@
 <?php
-function logactivity($pdo,$user_id,$email,$action, $status='success'){
+function logactivity($pdo,$user_id,$user_email,$action, $status='success'){
 try{
     //Get client ip address
-$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADOR'] ?? 'unkown';
+$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 if (strpos ($ip,',')!== false){
     $ip = trim (explode(',',$ip)[0]);
-}
+};
      //Get user agent(browser)
- $user_agent = substr($_SERVER['HTTP_USER_AGENT'] ?? 'unkown' , 0,255);
+ $user_agent = substr($_SERVER['HTTP_USER_AGENT'] ?? 'unknown' , 0,255);
 
 
  //query
@@ -18,10 +18,10 @@ if (strpos ($ip,',')!== false){
   activity_log_action,
   activity_log_status,
   activity_log_ip_address,
-  activity_log_user_agent,
+  activity_log_user_agent
   ) VALUES (?,?,?,?,?,?)
-
- ")
+   
+  ");
 
  $success = $stmt->execute([
     $user_id,
@@ -38,10 +38,4 @@ if (strpos ($ip,',')!== false){
     return false;
 }
 }
-$succes = logactivity($pdo,$user_id,$user_email,'activity','success');
- if(success){
-    echo "Activity log insert succesfully.";
- }else{
-    echo "Failed to insert activity log."
- }
 ?>
