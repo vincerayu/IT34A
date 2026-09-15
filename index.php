@@ -11,13 +11,36 @@ $error = '';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
        $login = trim ($_POST['login']) ?? '';
-       $_password = $_POST['password'] ?? '';
+       $password = $_POST['password'] ?? '';
 
-       if (loginUser($pdo, $login, $password)){
+       if (loginUser($pdo,$login,$password)){
         header('Location:'. BASE_URL . '/app/' . $_SESSION['user_role']. '/index.php');
         exit;
        }
-       $error = 'Invalid login redentials';
+       $error = 'Invalid login credentials';
+       IF($login=== '' || $password=== '' ){
+        $error = 'Invalid login credentials';
+         logactivity (
+           $pdo,
+           null,
+            $login,
+            'login',
+             'failed'
+        );
+       } else {
+         if (loginUser($pdo,$login,$password)){
+            logactivity(
+                $pdo,
+                $_SESSION['user_id'],
+                $_SESSION['user_email'],
+                'login',
+                'success'
+            );
+
+            header('Location:'. BASE_URL . '/app/' . $_SESSION['user_role']. '/index.php');
+        exit;
+         }
+       }
 }
 
 
@@ -30,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>Title</title>
 </head>
  <?php if ($error): ?>
-     <p><?= htmlspecialchars($errors) ?></p>
+     <p><?= htmlspecialchars($error) ?></p>
      <?php endif; ?> 
 <body>
     <h1>User Login</h1>
