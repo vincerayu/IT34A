@@ -13,12 +13,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
        $login = trim ($_POST['login']) ?? '';
        $password = $_POST['password'] ?? '';
 
-       if (loginUser($pdo,$login,$password)){
-        header('Location:'. BASE_URL . '/app/' . $_SESSION['user_role']. '/index.php');
-        exit;
-       }
-       $error = 'Invalid login credentials';
-       IF($login=== '' || $password=== '' ){
+      
+       if($login=== '' || $password=== '' ){
         $error = 'Invalid login credentials';
          logactivity (
            $pdo,
