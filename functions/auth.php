@@ -33,6 +33,12 @@ function loginUser($pdo,$login,$password){
     $_SESSION['user_username']=$user['user_username'];
     $_SESSION['user_role']=$user['user_role'];
 
+
+// initial database session
+
+$_SESSION['session_id'] = startUserSession($pdo);
+
+
     return true;
 }
 
