@@ -4,7 +4,7 @@ require_once __DIR__ . '/config/config.php';
 IF (isset ($_SESSION['user_id'])){
     header('Location:'. BASE_URL . '/app/' . $_SESSION['user_role']. '/index.php');
     exit;
-}
+};
 
 $error = '';
 
