@@ -73,5 +73,43 @@ return $stmt->execute([
         return(bool) $stmt->fetchColumn();
 }
 
+// Session Timeout
+function checkSessionTimeout (){
+global $pdo;
+
+    // Timeout Settings
+    // 10 secs for testing
+    // 1800 secs for 30 mins session time
+
+    $timeout = 10;
+
+    // Check last activity
+    if(isset($_SESSION['last_activity'])){
+
+        $inactive = time() - $_SESSION['last_activity'];
+
+        if($inactive >= $timeout){
+        // End database session
+        endUserSession($pdo);
+
+        // Destroy PHP Session
+        session_unset();
+        session_destroy();
+
+        // Redirect
+        header(
+            'Location: '. 
+            BASE_URL . 
+            '/index.php?timeout=1'
+        );
+
+        exit;
+
+        }
+    }
+
+    $_SESSION['last_activity'] = time();
+
+}
 
 ?>
